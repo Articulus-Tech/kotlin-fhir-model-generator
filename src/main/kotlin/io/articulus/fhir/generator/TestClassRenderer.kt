@@ -365,6 +365,7 @@ class CreateTestMethods(private var spec: FhirSpec, private val rawData: Mutable
         val out = FileSpec.builder(spec.packageName, "DataTests")
         val classBuilder = TypeSpec.classBuilder("DataTests").addModifiers(KModifier.OPEN)
 
+
         registerGsonTypeAdaptors(classBuilder)
 
         classBuilder.addFunction(FunSpec.builder("stringMatch")
@@ -376,6 +377,7 @@ class CreateTestMethods(private var spec: FhirSpec, private val rawData: Mutable
         )
 
         out.addType(classBuilder.build())
+        out.addImport(Settings.baseModelPackage, "gsonFhirBuilder")
 
         out.addFunction(FunSpec.builder("readTextAndClose")
                 .receiver(File::class)
@@ -386,17 +388,6 @@ class CreateTestMethods(private var spec: FhirSpec, private val rawData: Mutable
                        }
 
                 """.trimIndent())
-                .build())
-
-        out.addFunction(FunSpec.builder("gsonFhirBuilder")
-                .returns(GsonBuilder::class.java)
-                .addCode("""
-                    val runtimeTypeAdapterFactory = %T
-                        .of(Resource::class.java, "resourceType", true);
-                    return io.articulus.fhir.base.gsonFhirGeneratorBuilder()
-                        .registerTypeAdapterFactory(runtimeTypeAdapterFactory)
-
-                """.trimIndent(), RuntimeTypeAdapterFactory::class.java)
                 .build())
 
         out.build().writeTo(File(Settings.destinationTestDir))

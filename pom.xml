@@ -178,11 +178,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.6</version>
                 <executions>
@@ -209,22 +204,37 @@
                         <fileset>
                             <directory>src/main/kotlin/io/articulus/fhir/model/dstu3</directory>
                             <includes>
-                                <include>*.kt</include>
+                                <include>*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>src/main/kotlin/io/articulus/fhir/model</directory>
+                            <includes>
+                                <include>*</include>
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
                         <fileset>
                             <directory>src/test/kotlin/io/articulus/fhir/model/dstu3</directory>
                             <includes>
-                                <include>*.kt</include>
+                                <include>*</include>
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
                         <fileset>
-                            <directory>download</directory>
+                            <directory>src/test/resources/model/sample_data/dstu3</directory>
+                            <includes>
+                                <include>*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
                         </fileset>
                         <fileset>
-                            <directory>src/test/resources/model/sample_data</directory>
+                            <directory>src/test/resources/model/sample_data/dstu3</directory>
+                            <includes>
+                                <include>*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
                         </fileset>
                     </filesets>
                 </configuration>

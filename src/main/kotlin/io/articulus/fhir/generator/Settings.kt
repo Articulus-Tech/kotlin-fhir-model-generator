@@ -11,6 +11,7 @@ class Settings {
 
         val downloadFiles = (System.getenv("downloadFiles") ?: "false").equals("true", true)
 
+        const val baseModelPackage = "io.articulus.fhir.model"
         const val downloadDir = "./download"
         private const val destinationBaseDir = "."
         const val destinationSrcDir = "$destinationBaseDir/src/main/kotlin"
